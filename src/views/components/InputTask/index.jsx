@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 
 import styles from "./index.module.scss";
 
@@ -6,6 +6,14 @@ export const InputTask = ({ title, id, onDelete, onEdit, onDone }) => {
   const [checked, setChecked] = useState(false);
   const [value, setValue] = useState(title);
   const [isEditMode, setEditMode] = useState(false);
+  const editTitleInputRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (isEditMode && editTitleInputRef) {
+      console.log(editTitleInputRef.current);
+      editTitleInputRef.current.focus();
+    }
+  }, [isEditMode]);
 
   return (
     <div className={styles.inputTask}>
@@ -28,11 +36,11 @@ export const InputTask = ({ title, id, onDelete, onEdit, onDone }) => {
           </h3>
         ) : (
           <input
+            ref={editTitleInputRef}
             value={value}
             onChange={e => {
               setValue(e.target.value);
             }}
-            contentEditable={true}
             className={styles.inputTaskTitleEdit}
           />
         )}
