@@ -1,4 +1,4 @@
 Simple ToDoList App using react hooks
-To start app: npm run dev
+- To start app: npm run dev
 
   
